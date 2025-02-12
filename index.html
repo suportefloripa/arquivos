@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Chave CursorAI</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-6">
+            <h1 class="text-3xl font-bold text-center mb-6">Gerador de Chave CursorAI</h1>
+            
+            <div class="text-center mb-8">
+                <button id="generateBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-lg transition-colors">
+                    Gerar Nova Chave
+                </button>
+            </div>
+
+            <div id="resultSection" class="hidden">
+                <div class="mb-6">
+                    <h2 class="text-xl font-semibold mb-3">Sua Chave</h2>
+                    <div class="flex">
+                        <input type="text" id="generatedKey" class="flex-1 p-2 border rounded-l" readonly>
+                        <button onclick="copyToClipboard()" class="bg-gray-200 hover:bg-gray-300 px-4 rounded-r">
+                            Copiar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <h2 class="text-xl font-semibold">Instruções de Instalação</h2>
+                    
+                    <!-- Observação -->
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
+                        <p class="text-blue-700">
+                            <strong>Observação:</strong> Os seguintes passos são principalmente para usuários do Windows. Os usuários de Mac e Linux podem adaptar essas etapas com base na estrutura de arquivos do sistema operacional para uma desinstalação completa.
+                        </p>
+                    </div>
+
+                    <!-- Sistema Operacional Seletor -->
+                    <div class="flex space-x-2 mb-4">
+                        <button onclick="showOSInstructions('windows')" class="os-btn bg-blue-500 text-white px-4 py-2 rounded active">Windows</button>
+                        <button onclick="showOSInstructions('mac')" class="os-btn bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded">MacOS</button>
+                        <button onclick="showOSInstructions('linux')" class="os-btn bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded">Linux</button>
+                    </div>
+
+                    <!-- Instruções Windows -->
+                    <div id="windows-instructions" class="os-instructions">
+                        <ol class="list-decimal pl-6 space-y-3">
+                            <li>Desinstale completamente o Cursor do seu sistema</li>
+                            <li>Apague as pastas:
+                                <ul class="list-disc pl-6 mt-2">
+                                    <li>C:\Users\[SeuUsuário]\AppData\Roaming\Cursor</li>
+                                    <li>C:\Users\[SeuUsuário]\AppData\Local\cursor-updater</li>
+                                    <li>C:\Users\[SeuUsuário]\AppData\Local\Programs\cursor</li>
+                                    <li>C:\Users\[SeuUsuário]\AppData\Local\Cursor</li>
+                                </ul>
+                            </li>
+                            <li>Instale a versão específica do Cursor: <a href="https://downloader.cursor.sh/builds/250103fqxdt5u9z/windows/nsis/x64" class="text-blue-500 hover:underline" target="_blank">Cursor v0.44.11</a></li>
+                            <li>Crie uma nova conta usando um email temporário
+                                <div class="bg-gray-100 p-3 rounded-lg mt-2 mb-2">
+                                    <h4 class="font-semibold mb-2 text-sm">Sites sugeridos para email temporário:</h4>
+                                    <code class="block bg-white p-2 rounded border text-sm">temp-mail.org<br>10minutemail.com</code>
+                                </div>
+                            </li>
+                            <li>Quando aparecer a mensagem "Too many free trials", feche o Cursor</li>
+                            <li>Edite o arquivo: %APPDATA%\Cursor\User\globalStorage\storage.json</li>
+                            <li>Substitua o conteúdo com sua nova chave:
+                                <div class="relative">
+                                    <pre id="configCode" class="bg-gray-100 p-3 rounded mt-2 text-sm"></pre>
+                                    <button onclick="copyConfig('configCode')" class="absolute top-2 right-2 bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded text-sm">
+                                        Copiar
+                                    </button>
+                                </div>
+                            </li>
+                            <li>Salve o arquivo e reinicie o Cursor</li>
+                        </ol>
+                    </div>
+
+                    <!-- Instruções MacOS -->
+                    <div id="mac-instructions" class="os-instructions hidden">
+                        <ol class="list-decimal pl-6 space-y-3">
+                            <li>Desinstale o Cursor do seu Mac</li>
+                            <li>Apague as pastas:
+                                <ul class="list-disc pl-6 mt-2">
+                                    <li>~/Library/Application Support/Cursor</li>
+                                    <li>~/Library/Caches/Cursor</li>
+                                    <li>~/Library/Preferences/com.cursor.Cursor.plist</li>
+                                    <li>~/Library/Application Support/cursor-updater</li>
+                                    <li>~/Library/Caches/cursor-updater</li>
+                                </ul>
+                            </li>
+                            <li>Instale a versão específica do Cursor: <a href="https://downloader.cursor.sh/builds/250103fqxdt5u9z/mac/dmg/arm64" class="text-blue-500 hover:underline" target="_blank">Cursor v0.44.11</a></li>
+                            <li>Crie uma nova conta usando um email temporário
+                                <div class="bg-gray-100 p-3 rounded-lg mt-2 mb-2">
+                                    <h4 class="font-semibold mb-2 text-sm">Sites sugeridos para email temporário:</h4>
+                                    <code class="block bg-white p-2 rounded border text-sm">temp-mail.org<br>10minutemail.com</code>
+                                </div>
+                            </li>
+                            <li>Quando aparecer a mensagem "Too many free trials", feche o Cursor</li>
+                            <li>Edite o arquivo: ~/Library/Application Support/Cursor/User/globalStorage/storage.json</li>
+                            <li>Substitua o conteúdo com sua nova chave:
+                                <div class="relative">
+                                    <pre id="configCode-mac" class="bg-gray-100 p-3 rounded mt-2 text-sm"></pre>
+                                    <button onclick="copyConfig('configCode-mac')" class="absolute top-2 right-2 bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded text-sm">
+                                        Copiar
+                                    </button>
+                                </div>
+                            </li>
+                            <li>Salve o arquivo e reinicie o Cursor</li>
+                        </ol>
+                    </div>
+
+                    <!-- Instruções Linux -->
+                    <div id="linux-instructions" class="os-instructions hidden">
+                        <ol class="list-decimal pl-6 space-y-3">
+                            <li>Desinstale o Cursor do seu sistema</li>
+                            <li>Apague as pastas:
+                                <ul class="list-disc pl-6 mt-2">
+                                    <li>~/.config/Cursor</li>
+                                    <li>~/.cache/Cursor</li>
+                                    <li>~/.local/share/Cursor</li>
+                                    <li>~/.config/cursor-updater</li>
+                                    <li>~/.cache/cursor-updater</li>
+                                </ul>
+                            </li>
+                            <li>Instale a versão específica do Cursor: <a href="https://downloader.cursor.sh/builds/250103fqxdt5u9z/linux/deb/x64" class="text-blue-500 hover:underline" target="_blank">Cursor v0.44.11</a></li>
+                            <li>Crie uma nova conta usando um email temporário
+                                <div class="bg-gray-100 p-3 rounded-lg mt-2 mb-2">
+                                    <h4 class="font-semibold mb-2 text-sm">Sites sugeridos para email temporário:</h4>
+                                    <code class="block bg-white p-2 rounded border text-sm">temp-mail.org<br>10minutemail.com</code>
+                                </div>
+                            </li>
+                            <li>Quando aparecer a mensagem "Too many free trials", feche o Cursor</li>
+                            <li>Edite o arquivo: ~/.config/Cursor/User/globalStorage/storage.json</li>
+                            <li>Substitua o conteúdo com sua nova chave:
+                                <div class="relative">
+                                    <pre id="configCode-linux" class="bg-gray-100 p-3 rounded mt-2 text-sm"></pre>
+                                    <button onclick="copyConfig('configCode-linux')" class="absolute top-2 right-2 bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded text-sm">
+                                        Copiar
+                                    </button>
+                                </div>
+                            </li>
+                            <li>Salve o arquivo e reinicie o Cursor</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Adicionar as dicas aqui dentro -->
+                <div class="mt-8">
+                    <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-6">
+                        <h2 class="text-xl font-semibold mb-4">Dicas Adicionais</h2>
+                        
+                        <!-- Desabilitar Atualizações -->
+                        <div class="mb-6">
+                            <h3 class="font-semibold text-lg mb-2">Como Desabilitar Atualizações Automáticas</h3>
+                            <p class="mb-3">Para evitar atualizações automáticas, adicione estas configurações ao arquivo <code class="bg-gray-100 px-2 py-1 rounded">settings.json</code>:</p>
+                            <div class="relative">
+                                <pre class="bg-gray-100 p-3 rounded text-sm">
+{
+    "update.mode": "none",
+    "update.showReleaseNotes": false,
+    "update.enableWindowsBackgroundUpdates": false
+}</pre>
+                                <button onclick="copySettings()" class="absolute top-2 right-2 bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded text-sm">
+                                    Copiar
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- MAC Address Warning -->
+                        <div class="mb-6">
+                            <h3 class="font-semibold text-lg mb-2">Aviso sobre MAC Address</h3>
+                            <div class="bg-red-50 border-l-4 border-red-400 p-4">
+                                <p class="mb-3">Se você receber o aviso <code class="bg-gray-100 px-2 py-1 rounded">"MAC Address Modification Warning"</code>, adicione estas configurações ao arquivo <code class="bg-gray-100 px-2 py-1 rounded">settings.json</code>:</p>
+                                <div class="relative">
+                                    <pre class="bg-gray-100 p-3 rounded text-sm">
+{
+    "security.workspace.trust.enabled": false,
+    "security.workspace.trust.startupPrompt": "never",
+    "security.workspace.trust.banner": "never",
+    "security.workspace.trust.emptyWindow": false,
+    "telemetry.telemetryLevel": "off"
+}</pre>
+                                    <button onclick="copyMacSettings()" class="absolute top-2 right-2 bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded text-sm">
+                                        Copiar
+                                    </button>
+                                </div>
+                                <p class="mt-3 text-red-700">
+                                    <strong>Importante:</strong> Estas configurações ajudam a evitar avisos de segurança relacionados ao MAC Address, mas use por sua conta e risco.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- PowerShell Automation -->
+                        <div class="mb-6">
+                            <h3 class="font-semibold text-lg mb-2">Automação via PowerShell (Windows)</h3>
+                            <div class="bg-green-50 border-l-4 border-green-400 p-4">
+                                <p class="mb-3">Para executar todo o processo automaticamente no Windows, abra o PowerShell como administrador e execute o seguinte comando:</p>
+                                <div class="relative">
+                                    <pre class="bg-gray-100 p-3 rounded text-sm whitespace-pre overflow-x-auto">irm https://github.com/suportefloripa/arquivos/raw/main/cursor_win_id_modifier_pt-br.ps1 | iex</pre>
+                                    <button onclick="copyPowerShellCmd()" class="absolute top-2 right-2 bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded text-sm">
+                                        Copiar
+                                    </button>
+                                </div>
+                                <div class="mt-3 text-green-700">
+                                    <p><strong>Observação:</strong> Este comando irá:</p>
+                                    <ul class="list-disc pl-6 mt-2 space-y-1">
+                                        <li>Desinstalar o Cursor automaticamente</li>
+                                        <li>Remover todas as pastas necessárias</li>
+                                        <li>Instalar a versão correta</li>
+                                        <li>Configurar as chaves necessárias</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Observações Importantes -->
+                        <div class="space-y-4">
+                            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                                <h3 class="font-semibold mb-2">Observações Importantes:</h3>
+                                <ul class="list-disc pl-6 space-y-2">
+                                    <li>Recomenda-se desabilitar a conexão com a internet durante o primeiro login após a instalação</li>
+                                    <li>Certifique-se de que todas as pastas antigas foram completamente removidas antes de instalar a nova versão</li>
+                                    <li>Em caso de problemas, tente limpar o cache do sistema e reiniciar o computador antes de tentar novamente</li>
+                                    <li>Mantenha uma cópia do arquivo de configuração com a chave em local seguro</li>
+                                    <li>Fonte das informações: <a href="https://github.com/yuaotian/go-cursor-help" target="_blank" class="text-blue-600 hover:text-blue-800 hover:underline">github.com/yuaotian/go-cursor-help</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

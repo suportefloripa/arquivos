@@ -1,0 +1,41 @@
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: monospace;
+}
+
+.container {
+    min-height: 100vh;
+}
+
+input[readonly] {
+    background-color: #f8f8f8;
+}
+
+.os-btn {
+    transition: all 0.3s ease;
+}
+
+.os-btn.active {
+    background-color: #3b82f6 !important;
+    color: white;
+}
+
+.os-instructions {
+    transition: opacity 0.3s ease;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 640px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .os-btn {
+        font-size: 0.875rem;
+        padding: 0.5rem 1rem;
+    }
+} 
