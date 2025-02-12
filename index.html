@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Chave CursorAI</title>
+    <title>Resetar Trial do Cursor AI - Gerador de Chave</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-gray-100">
     <div class="container mx-auto px-4 py-8">
         <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-6">
-            <h1 class="text-3xl font-bold text-center mb-6">Gerador de Chave CursorAI</h1>
+            <h1 class="text-3xl font-bold text-center mb-6">Resetar Trial do Cursor AI</h1>
+            <p class="text-center text-gray-600 mb-8">Ferramenta para gerar nova chave e reiniciar o período de teste</p>
             
             <div class="text-center mb-8">
                 <button id="generateBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-lg transition-colors">
@@ -32,11 +33,17 @@
                 <div class="space-y-4">
                     <h2 class="text-xl font-semibold">Instruções de Instalação</h2>
                     
-                    <!-- Observação -->
-                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
-                        <p class="text-blue-700">
-                            <strong>Observação:</strong> Os seguintes passos são principalmente para usuários do Windows. Os usuários de Mac e Linux podem adaptar essas etapas com base na estrutura de arquivos do sistema operacional para uma desinstalação completa.
+                    <!-- Aviso Legal -->
+                    <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-4">
+                        <p class="text-red-700">
+                            <strong>⚠️ AVISO IMPORTANTE:</strong>
                         </p>
+                        <ul class="list-disc pl-6 mt-2 space-y-2 text-red-700">
+                            <li>Este conteúdo é disponibilizado apenas para fins educacionais e de teste</li>
+                            <li>O uso deste material é de total responsabilidade do usuário</li>
+                            <li>Não nos responsabilizamos por qualquer dano ou consequência do uso destas informações</li>
+                            <li>Recomendamos sempre utilizar software original e devidamente licenciado</li>
+                        </ul>
                     </div>
 
                     <!-- Sistema Operacional Seletor -->
@@ -200,7 +207,7 @@
                             <div class="bg-green-50 border-l-4 border-green-400 p-4">
                                 <p class="mb-3">Para executar todo o processo automaticamente no Windows, abra o PowerShell como administrador e execute o seguinte comando:</p>
                                 <div class="relative">
-                                    <pre class="bg-gray-100 p-3 rounded text-sm whitespace-pre overflow-x-auto">irm https://github.com/suportefloripa/arquivos/raw/main/cursor_win_id_modifier_pt-br.ps1 | iex</pre>
+                                    <pre class="bg-gray-100 p-3 rounded text-sm whitespace-pre overflow-x-auto">irm https://github.com/suportefloripa/cursorai-renew/raw/main/cursor_win_id_modifier_pt-br.ps1 | iex</pre>
                                     <button onclick="copyPowerShellCmd()" class="absolute top-2 right-2 bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded text-sm">
                                         Copiar
                                     </button>
